@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        /* Basic CSS styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px 20px; /* Adjust the padding to increase the height */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .container {
+            margin: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        #fileUpload {
+            display: none; /* Hide the default file input */
+        }
+        .custom-file-upload {
+            border: none;
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #0056b3;
+            color: #fff;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .custom-file-upload:hover {
+            background-color: #003d7a;
+        }
+        .custom-file-upload:active {
+            background-color: #002b52;
+        }
+        .container > button {
+            margin-bottom: 10px; /* Add margin between buttons */
+            background-color: transparent;
+            color: #007bff;
+            border: 2px solid black;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .container > button:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .From {
+            margin-top: 20px; /* Add margin at the top */
+            margin-bottom: 20px; /* Add margin at the bottom */
+            padding-top: 10px; /* Add padding at the top */
+            padding-bottom: 10px; /* Add padding at the bottom */
+        }
+        .From label {
+            font-weight: bold;
+            margin-right: 10px;
+            display: block;
+            margin-bottom: 5px; /* Add margin at the bottom */
+        }
+        #email {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .From, .To { /* Combined styling for From and To address */
+            margin-bottom: 20px;
+        }
+        .From label, .To label { /* Combined styling for From and To label */
+            font-weight: bold;
+            margin-right: 10px;
+            display: block;
+        }
+        #email, #to { /* Combined styling for From and To input */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 400px;
+        }
+        #recipientEmails {
+            width: 200px; /* Initial width */
+            height: 40px; /* Initial height */
+            resize: both; /* Allow resizing */
+            overflow: auto; /* Enable scrolling if needed */
+        }
+        #templateSelector {
+            margin-bottom: 20px;
+        }
+        #templateSelector label {
+            font-weight: bold;
+            margin-right: 10px;
+            display: block;
+        }
+        #templateSelect {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #333;
+            font-size: 16px;
+            width: 100%;
+            max-width: 400px;
+        }
+        #templates {
+            margin-bottom: 20px;
+        }
+        .template {
+            display: none;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            height: 400px;
+            overflow: auto; /* Enable scrolling if content exceeds height */
+        }
+        .template.active {
+            display: block;
+        }
+        #submitBtn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        #submitBtn:hover {
+            background-color: #0056b3;
+        }
+        #submitBtn:active {
+            background-color: #003d7a;
+        }
+        .selected-files-container {
+            margin-bottom: 10px;
+        }
+        .selected-file {
+            margin-bottom: 5px;
+        }
+        .remove-file {
+            color: #FF0000;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        #emailError,
+        #recipientEmailsError {
+            color: #FF0000;
+            margin-top: 5px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .Subject {
+            margin-bottom: 20px;
+        }
+
+        .Subject label {
+            font-weight: bold;
+            margin-right: 10px;
+            display: block;
+        }
+
+        #subject {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width:400px;
+            max-width: 500px;
+            min-height: 20px; /* Minimum height */
+            resize: both;
+            overflow:auto /* Allow vertical resizing */
+        }
+
+        .signature {
+            margin-top: 20px;
+        }
+
+        .signature textarea {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 400px;
+            min-height: 100px; /* Minimum height */
+            resize: both; /* Allow both horizontal and vertical resizing */
+            overflow: auto; /* Enable scrolling if content exceeds size */
+        }
+
+        /* Remove underline and change color for links */
+        .container button a {
+            text-decoration: none;
+            color: black;
+            margin-bottom: 10px;
+        }
+        
+    </style>
+</head>
+<body>
+<header>
+    <h1>Bulk Email</h1>
+    <a href="/" id="logout">Logout</a>
+</header>
+<div class="container">
+    <label for="fileUpload" class="custom-file-upload">Choose File(s)</label>
+    <input type="file" id="fileUpload" accept=".csv" multiple>
+    <div class="selected-files-container" id="selectedFiles"></div> <!-- Container to display selected files -->
+    <button id="chooseGroupBtn"><a href="/chooseExistedGroups">Choose Group</a></button>
+    <button id = "chooseRecipientBtn"><a href="/chooseRecipientList">Choose Recipient list</a></button>
+    <button><a href="/sentEmails">Sent Mails</a></button>
+    <button><a href="/seeGroups">See Groups</a></button>
+    <button><a href="/seeRecipientList">See Recipient List</a></button>
+    <div class="From">
+        <label for="email">From address:</label>
+        {{ usermailid }}
+    </div>
+    <div class="To">
+        <label for="to">To address:</label>
+        <!-- <input type="email" id="to" name="to" required> -->
+        {% if selected_groups is not none %}
+        {% for selected_group in selected_groups %}
+            {{ selected_group }}
+        {%  endfor %}
+        {% endif %}
+
+        {% if selected_recipients is not none %}
+        {% for selected_recipient in selected_recipients %}
+            {{ selected_recipient }}
+        {%  endfor %}
+        {% endif %}
+    </div>
+    <div class="Subject">
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required>
+    </div>
+    <div id="templateSelector">
+        <label for="templateSelect">Select Template:</label>
+        <select id="templateSelect">
+            <option value="select your template">Select your template</option>
+            <option value="template1">Individual email</option>
+            <option value="template2">Same email</option>
+        </select>
+    </div>
+    <div id="templates">
+        <div class="template" id="template1">
+            <p>Dear <input type="text" placeholder="{{name}}">,</p>
+            <textarea placeholder="Write your content here."></textarea>
+            <div class="signature">
+                <textarea id="signature1" placeholder="Your Signature"></textarea>
+            </div>
+        </div>
+        <div class="template" id="template2">
+            <textarea placeholder="Write your addressing and content here."></textarea>
+            <div class="signature"></div>
+                <textarea id="signature2" placeholder="Your Signature"></textarea>
+            </div>
+        </div>
+        
+    <button id="submitBtn">Send</button>
+    </div>
+</div>
+
+<script>
+    // Maintain a list of selected files
+    var selectedFilesList = [];
+
+    // Script to handle template selection
+    document.getElementById('templateSelect').addEventListener('change', function () {
+        var selectedTemplate = this.value;
+        var templates = document.querySelectorAll('.template');
+        templates.forEach(function (template) {
+            template.classList.remove('active');
+        });
+        document.getElementById(selectedTemplate).classList.add('active');
+    });
+
+    // Script to handle file selection
+    document.getElementById('fileUpload').addEventListener('change', function () {
+    var files = this.files;
+    var selectedFilesContainer = document.getElementById('selectedFiles');
+    for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        if (!selectedFilesList.includes(file.name)) {
+            selectedFilesList.push(file.name);
+            var fileName = document.createElement('div');
+            fileName.textContent = file.name;
+            fileName.classList.add('selected-file');
+            var removeBtn = document.createElement('span');
+            removeBtn.textContent = 'Remove';
+            removeBtn.classList.add('remove-file');
+            removeBtn.addEventListener('click', function () {
+                var fileName = this.parentNode.textContent;
+                var index = selectedFilesList.indexOf(fileName);
+                if (index !== -1) {
+                    selectedFilesList.splice(index, 1);
+                }
+                this.parentNode.remove(); // Remove the file element
+            });
+            fileName.appendChild(removeBtn);
+            selectedFilesContainer.appendChild(fileName);
+        }
+    }
+    
+    // Adding "Click here" button after selecting files
+    var clickHereButton = document.createElement('button');
+    clickHereButton.textContent = 'Click here';
+    clickHereButton.addEventListener('click', function() {
+        window.location.href = 'clickhere.html'; // Redirect to clickhere.html
+    });
+    selectedFilesContainer.appendChild(clickHereButton);
+});
+
+
+    // Script to handle logout
+    document.getElementById('logout').addEventListener('click', function () {
+        // Action for logout
+        alert('Logged out');
+        // Redirect or any other action
+    });
+
+    // Script to handle form submission
+    document.getElementById('submitBtn').addEventListener('click', function () {
+        var email = document.getElementById('email').value.trim();
+        var recipientEmails = document.getElementById('to').value.trim(); // Changed to 'to'
+        var combinedRecipients = '';
+
+        if (email !== '') {
+            combinedRecipients += email;
+        }
+
+        if (recipientEmails !== '') {
+            if (combinedRecipients !== '') {
+                combinedRecipients += ', ';
+            }
+            combinedRecipients += recipientEmails;
+        }
+
+        var signature = ''; // Initialize signature variable
+        var template = document.querySelector('.template.active'); // Get active template
+        var signatureInput = template.querySelector('.signature textarea'); // Get signature textarea within the active template
+
+        if (signatureInput) {
+            signature = signatureInput.value.trim(); // Get value of the signature textarea
+        }
+
+        // Now you have the combined recipients and signature, you can proceed with your email sending logic
+        console.log('Combined Recipients:', combinedRecipients);
+        console.log('Signature:', signature);
+
+        // You can add your email sending logic here
+    });
+
+    // Script to validate email addresses
+    function validateEmails(emails) {
+        var emailArray = emails.split(',');
+        var invalidEmails = [];
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for email validation
+
+        emailArray.forEach(function (email) {
+            if (!emailRegex.test(email.trim())) {
+                invalidEmails.push(email.trim());
+            }
+        });
+
+        return invalidEmails;
+    }
+
+    // Script to handle email validation on submit
+    document.getElementById('submitBtn').addEventListener('click', function () {
+        var recipientEmails = document.getElementById('to').value.trim(); // Changed to 'to'
+        var invalidEmails = validateEmails(recipientEmails);
+
+        var recipientEmailsError = document.getElementById('recipientEmailsError');
+        if (invalidEmails.length > 0) {
+            recipientEmailsError.textContent = 'Invalid email(s): ' + invalidEmails.join(', ');
+        } else {
+            recipientEmailsError.textContent = '';
+        }
+    });
+
+    // Script to adjust textarea height and width dynamically for email content box
+    var subjectInput = document.getElementById('subject');
+    subjectInput.addEventListener('input', function () {
+        this.style.height = 'auto'; // Reset height
+        this.style.height = (this.scrollHeight) + 'px'; // Set new height
+    });
+
+    // Script to adjust textarea height and width dynamically for signature input box
+    var signatureInput1 = document.getElementById('signature1');
+    var signatureInput2 = document.getElementById('signature2');
+
+    function adjustSignatureInputHeight(input) {
+        input.style.height = 'auto'; // Reset height
+        input.style.height = (input.scrollHeight) + 'px'; // Set new height
+    }
+
+    if (signatureInput1) {
+        signatureInput1.addEventListener('input', function () {
+            adjustSignatureInputHeight(this);
+        });
+    }
+
+    if (signatureInput2) {
+        signatureInput2.addEventListener('input', function () {
+            adjustSignatureInputHeight(this);
+        });
+    }
+
+    document.getElementById('chooseGroupBtn').addEventListener('click', function () {
+        // Fetch the selected group from the server
+        fetch('/chooseExistedGroups')
+            .then(response => response.json())
+            .then(groups => {
+                console.log('Data received from server:', groups); // Log the received data
+    
+                // Extract email addresses from the data
+                const groupEmail = groups[0][2]; // Assuming the group details are in the format [Group_id, Group_name, group_address]
+                console.log('Group email to be appended:', groupEmail); // Log the group email to be appended
+                
+                // Get the existing value of the 'To' field
+                const toField = document.getElementById('to');
+                
+                // Check if the 'To' field already has a value
+                if (toField.value.trim() !== '') {
+                    // If the 'To' field already has a value, append the group email with a comma separator
+                    toField.value += ', ' + groupEmail;
+                } else {
+                    // If the 'To' field is empty, directly set the value to the group email
+                    toField.value = groupEmail;
+                }
+            })
+            .catch(error => console.error('Error fetching groups:', error));
+    });
+    
+    document.getElementById('chooseRecipientBtn').addEventListener('click', function () {
+        // Fetch the selected recipient from the server
+        fetch('/chooseRecipientList')
+            .then(response => response.json())
+            .then(recipients => {
+                console.log('Data received from server:', recipients); // Log the received data
+    
+                // Extract email addresses from the data
+                const recipientEmail = recipients[0].email; // Assuming the recipient details are in the format { email: 'recipient@example.com' }
+                console.log('Recipient email to be appended:', recipientEmail); // Log the recipient email to be appended
+                
+                // Get the existing value of the 'To' field
+                const toField = document.getElementById('to');
+                
+                // Check if the 'To' field already has a value
+                if (toField.value.trim() !== '') {
+                    // If the 'To' field already has a value, append the recipient email with a comma separator
+                    toField.value += ', ' + recipientEmail;
+                } else {
+                    // If the 'To' field is empty, directly set the value to the recipient email
+                    toField.value = recipientEmail;
+                }
+            })
+            .catch(error => console.error('Error fetching recipients:', error));
+    });
+    
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Existing Groups</title>
+</head>
+<body>
+    <h1>Choose Existing Groups</h1>
+    <!-- <form action="/process-groups" method="POST">
+        <fieldset>
+            <legend>Select Groups:</legend>
+            <ul>
+                {% for group in groups %}
+                <li>
+                    <input type="checkbox" id="group_{{ group.Group_id }}" name="groups[]" value="{{ group.Group_id }}">
+                    <label for="group_{{ group.Group_id }}">{{ group.Group_name }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+        </fieldset>
+        <button type="submit">Submit</button>
+    </form> -->
+    <form action="/home" method="POST">
+        {% for group in groups %}
+        <!-- {{ group[0] }}
+        {{ group[1]}} -->
+            <input type="checkbox" id="group_{{ group[0] }}" name="groups[]" value="{{ group[2] }}">
+            <label for="group_{{ group[0] }}"> {{ group[1] }}</label><br>
+        <!-- </form> -->
+        {% endfor %}
+        <button type="submit">Done</button>
+    </form>
+</body>
+</html>
