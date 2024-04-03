@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
             background-color: #f4f4f4;
@@ -20,6 +20,7 @@
             max-width: 800px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             background-color: #fff;
+            margin-bottom: 20px;
         }
         th, td {
             text-align: left;
@@ -36,12 +37,19 @@
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+        .button-container {
+            text-align: center;
+        }
+        .button-container button {
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
     <table>
         <thead>
             <tr>
+                <th></th> <!-- Empty header for checkbox column -->
                 <th>Recipient ID</th>
                 <th>Email</th>
                 <th>Name</th>
@@ -65,12 +73,12 @@
         </tbody>
     </table>
     
-</body>
+    <div class="button-container">
+        <button onclick="deleteRecipients()" id="deleteRecipientBtn">Delete</button>
+        <button onclick="insertRecipient()"  id="insertRecipientBtn">Insert</button>
+    </div>
 
-<div style="text-align: center; margin-top: 20px;">
-    <button onclick="deleteRecipients()" id="deleteRecipientBtn">Delete</button>
-    <button onclick="insertRecipient()"  id="insertRecipientBtn">Insert</button>
-</div>
+</body>
 
 <script>
     document.getElementById('insertRecipientBtn').addEventListener('click', function() {
