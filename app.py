@@ -3,7 +3,7 @@ from flask_mysqldb import MySQL
 import config
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
-
+from flask_mail import Mail, Message
 app = Flask(__name__)
 CORS(app)
 
@@ -171,7 +171,6 @@ def home():
         session.pop('selected_recipients', None)
     # Render the home template and pass selected groups and recipients as variables
     return render_template('home.html', selected_groups=selected_groups, usermailid=usermailid, selected_recipients=selected_recipients)
-
 
 @app.route('/seeRecipientList')
 def RL():
