@@ -175,6 +175,7 @@ button:hover {
     <div style="text-align: center; margin-top: 20px;">
         <button onclick="deleteGroups()">Delete</button>
         <button onclick="renameGroup()">Rename</button>
+        <button onclick="insertGroup()"id="insertGroupBtn">Insert</button>
     </div>
     
     <script>
@@ -213,6 +214,11 @@ button:hover {
             }
         }
 
+      document.getElementById('insertGroupBtn').addEventListener('click', function() {
+    // Redirect to the page for inserting recipients
+          window.location.href = '/insertGroup';
+      });
+
         function deleteGroups() {
           const selectedGroups = getSelectedGroups();
           // Make a POST request to your Flask backend to delete groups
@@ -229,7 +235,7 @@ button:hover {
                   window.location.reload();
               }
           });
-      }
+        }
 
       function DeleteRecipientLists() {
         const selectedRecipients = getSelectedRecipients();
@@ -247,7 +253,7 @@ button:hover {
                 window.location.reload();
             }
         });
-    }
+        }
 
     function getSelectedRecipients() {
       const checkboxes = document.querySelectorAll('.recipient-checkbox:checked');
@@ -256,8 +262,8 @@ button:hover {
           ids.push(checkbox.value);
       });
       return ids;
-  }
-
+    }
+    
     </script>
     
 </html>

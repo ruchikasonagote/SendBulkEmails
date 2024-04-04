@@ -375,5 +375,28 @@ def delete_r():
         # If an error occurs during deletion
         return jsonify({'error': 'Error deleting recipients: {}'.format(str(e))}), 500
 
+@app.route('/insertGroup')
+def insert_group_page():
+    return render_template('insertGroup.html')
+
+@app.route('/insertGroup', methods=['POST'])
+def insert_group():
+    if 'user_id' not in session:
+        return jsonify({'error': 'User not logged in'}), 401
+
+    Group_name = request.form['Group_name']
+    group_address =request.form['group_address']
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO Email_Group (Group_name,group_address) VALUES (%s,%s)",
+                    (Group_name,group_address))
+        mysql.connection.commit()
+        return redirect(url_for('home'))
+    except Exception as e:
+        mysql.connection.rollback()
+        return jsonify({'error': str(e)}), 500
+    finally:
+        cur.close()
+
 if __name__ == '__main__':
     app.run(debug=True)
